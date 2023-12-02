@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script>
+
+         
+        AFRAME.registerComponent('create-sphere',{
+                init: function () {
+                     this.el.addEventListener('triggerdown', this.addMarker);
+                },
+                addMarker : function(e){
+                      let scene = document.querySelector('a-scene');
+                      let newMark = document.createElement('a-entity');
+                      newMark.setAttribute('geometry',{primitive: 'sphere'});
+                      newMark.setAttribute('material', 'color', 'red');
+                      newMark.setAttribute('scale', '.09 .09 .09');
+                      newMark.setAttribute('position',this.object3D.position);
+                      scene.appendChild(newMark);
+                 }
+                      
+              
+        });
+    </script>
+   
+
+</head>
+<body>
+    <a-scene cursor="rayOrigin: mouse" background="color: #ECECEC">
+
+        <a-box class="collidable" position="-1 0.5 -3" rotation="0 45 0" width="1" height="1" depth="1" color="#4CC3D9" shadow></a-box>
+      
+        <a-sphere position="0 1.25 -5" radius="1.25" shadow color="#EF2D5E"></a-sphere>
+      
+        <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D" shadow></a-cylinder>
+      
+        <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4" shadow></a-plane>
+      
+        <!-- camera & hand controls -->
+      
+        <a-entity id="camera-rig">
+          <a-entity  id="head" camera position="0 1.6 0" wasd-controls look-controls></a-entity>
+          <a-entity  oculus-touch-controls="hand: left" create-sphere></a-entity>
+          <a-entity  oculus-touch-controls="hand: right" create-sphere></a-entity>
+          <!-- <a-entity laser-controls="hand: left" raycaster="objects: .collidable; lineColor: red; lineOpacity: 1"></a-entity> -->
+        
+        </a-entity>
+      
+      </a-scene>
+</body>
+</html>
